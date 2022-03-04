@@ -31,7 +31,7 @@ public class DialogueManagerSecond : MonoBehaviour
 	}
 
     // Creates a new Story object with the compiled story which we can then play!
-    void StartStory() {
+    public void StartStory() {
 		story = new Story(inkJSONAsset.text);
 		if (OnCreateStory != null) OnCreateStory(story);
 		RefreshView();
@@ -66,12 +66,12 @@ public class DialogueManagerSecond : MonoBehaviour
 			}
 		}
 		// If we've read all the content and there's no choices, the story is finished!
-		else {
-			Button choice = CreateChoiceView("OK");
-			choice.onClick.AddListener(delegate {
-				StartStory();
-			});
-		}
+		//else {
+		//	Button choice = CreateChoiceView("OK");
+		//	choice.onClick.AddListener(delegate {
+		//		StartStory();
+		//	});
+		//}
 	}
 
 	// When we click the choice button, tell the story to choose that choice!
