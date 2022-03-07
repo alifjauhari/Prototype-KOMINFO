@@ -6,7 +6,7 @@ using System.IO;
 using UnityEngine.Events;
 
 namespace Zetcil
-{ 
+{
 
     public class VarConfig : MonoBehaviour
     {
@@ -135,13 +135,16 @@ namespace Zetcil
         {
             string opentag;
             string tabparent = "\t";
+            string tabchild = "\t\t";
             if (aTab == 2)
             {
                 tabparent = "\t\t";
+                tabchild = "\t\t\t\t";
             }
             else if (aTab == 3)
             {
                 tabparent = "\t\t\t";
+                tabchild = "\t\t\t\t\t\t";
             }
 
             opentag = tabparent + "<" + aTag + ">\n";
@@ -152,13 +155,16 @@ namespace Zetcil
         {
             string closetag;
             string tabparent = "\t";
+            string tabchild = "\t\t";
             if (aTab == 2)
             {
                 tabparent = "\t\t";
+                tabchild = "\t\t\t\t";
             }
             else if (aTab == 3)
             {
                 tabparent = "\t\t\t";
+                tabchild = "\t\t\t\t\t\t";
             }
 
             closetag = tabparent + "</" + aTag + ">\n";
@@ -452,7 +458,8 @@ namespace Zetcil
             string DirName = GetDirectory(VisualNovelDirectory);
             var sr = File.CreateText(DirName + aLanguageID + ".xml");
             sr.WriteLine(aLanguageData);
-            sr.Close(); 
+            sr.Close();
         }
+
     }
-} 
+}

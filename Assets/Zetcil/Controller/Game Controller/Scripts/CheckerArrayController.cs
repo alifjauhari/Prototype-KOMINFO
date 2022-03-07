@@ -147,11 +147,13 @@ namespace Zetcil
         public bool usingTrueCondition;
         [ReadOnly] public bool TrueConditionValue = true;
         public UnityEvent TrueConditionEvent;
+        bool isTrueInvoke = false;
 
         [Header("False Condition")]
         public bool usingFalseCondition;
         [ReadOnly] public bool FalseConditionValue = false;
         public UnityEvent FalseConditionEvent;
+        bool isFalseInvoke = false;
 
         [Header("Checker Condition")]
         public bool RepeatChecking;

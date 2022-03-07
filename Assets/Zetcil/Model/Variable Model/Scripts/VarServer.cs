@@ -39,6 +39,7 @@ namespace Zetcil
         public UnityEvent ServerEvent;
 
         string ConfigDirectory = "Config";
+        string ServerDirectory = "Server";
 
         // Start is called before the first frame update
         void Start()
@@ -149,6 +150,7 @@ namespace Zetcil
 
                 XmlDocument xmldoc;
                 XmlNodeList xmlnodelist;
+                XmlNode xmlnode;
                 xmldoc = new XmlDocument();
                 xmldoc.LoadXml(tempxml);
 

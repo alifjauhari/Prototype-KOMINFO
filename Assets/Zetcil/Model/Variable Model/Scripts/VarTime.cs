@@ -1,4 +1,4 @@
-﻿    /**************************************************************************************************************
+﻿/**************************************************************************************************************
  * Author : Rickman Roedavan
  * Version: 2.12
  * Desc   : Script untuk menampung nilai global variabel
@@ -26,6 +26,8 @@ namespace Zetcil
 
         [Header("Time Settings")]
         [ConditionalField("isEnabled")] public CTimeCalculation TimeCalculation;
+
+        bool isStopTimer = false;
 
         // Use this for initialization
         void Start()

@@ -71,8 +71,6 @@ namespace Zetcil
                 if (LoadingType == CLoadingType.ByDelayAndLoading)
                 {
                     WithLoadingScreen = true;
-                    SaveLoadingName(NextSceneName);
-                    NextSceneIndex = SceneIndexFromName(NextSceneName);
                     Invoke("ExecGoToSceneByDelay", WaitSecond);
                 }
                 if (LoadingType == CLoadingType.ByClick)
@@ -351,13 +349,13 @@ namespace Zetcil
             }
         }
 
-        public static string LoadingDirectory()
+        public static string TempDirectory()
         {
-            if (!Directory.Exists(Application.persistentDataPath + "/Loading/"))
+            if (!Directory.Exists(Application.persistentDataPath + "/Temp/"))
             {
-                Directory.CreateDirectory(Application.persistentDataPath + "/Loading/");
+                Directory.CreateDirectory(Application.persistentDataPath + "/Temp/");
             }
-            return Application.persistentDataPath + "/Loading/";
+            return Application.persistentDataPath + "/Temp/";
         }
 
         public static void LoadScene(int scene_index)
@@ -393,7 +391,7 @@ namespace Zetcil
         {
             string scene_name = SceneNameFromIndex(scene_index);
 
-            var sr = File.CreateText(LoadingDirectory() + "Loading.xml");
+            var sr = File.CreateText(TempDirectory() + "Loading.xml");
             sr.WriteLine("<DataCollection>");
             sr.WriteLine("<DataGroup>");
 
@@ -409,7 +407,7 @@ namespace Zetcil
         {
             int scene_index = SceneIndexFromName(scene_name);
 
-            var sr = File.CreateText(LoadingDirectory() + "Loading.xml");
+            var sr = File.CreateText(TempDirectory() + "Loading.xml");
             sr.WriteLine("<DataCollection>");
             sr.WriteLine("<DataGroup>");
 

@@ -55,6 +55,7 @@ namespace Zetcil
 
                 XmlDocument xmldoc;
                 XmlNodeList xmlnodelist;
+                XmlNode xmlnode;
                 xmldoc = new XmlDocument();
                 xmldoc.LoadXml(tempxml);
 
@@ -72,6 +73,7 @@ namespace Zetcil
 
                 XmlDocument xmldoc;
                 XmlNodeList xmlnodelist;
+                XmlNode xmlnode;
                 xmldoc = new XmlDocument();
                 xmldoc.LoadXml(tempxml);
 
