@@ -169,5 +169,19 @@ public class MouseLook : MonoBehaviour
             Cursor.visible = true;
         }
     }
+
+    public void SwitchCursorTo(bool isLock)
+    {
+        if (isLock)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
     #endregion
 }
