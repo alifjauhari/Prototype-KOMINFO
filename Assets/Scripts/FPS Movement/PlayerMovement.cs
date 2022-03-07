@@ -1,11 +1,14 @@
 //using Photon.Pun;
 using UnityEngine;
 using Cinemachine;
+using TMPro;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
     #region ----- Enums -----
-    enum MovementType { TPP, FPP }
+    public enum MovementType { TPP, FPP, AutomaticView }
+
     #endregion
 
     #region ------ Variables ------
@@ -39,6 +42,9 @@ public class PlayerMovement : MonoBehaviour
     [Space(5)] public bool usingAnimation;
     [SerializeField] Animator targetAnimator;
     [SerializeField] bool usingWalkAnimation;
+
+    [Header("UI"), Space(10)]
+    [SerializeField] TextMeshProUGUI movementTypeText;
 
     [Header("Photon")]
     public bool usingPhoton;
@@ -77,25 +83,18 @@ public class PlayerMovement : MonoBehaviour
 
         switch (movementType) {
             case MovementType.TPP:
-                Vector3 direction = new Vector3(x, 0f, z).normalized;
-
-                // rotate and move player based on the direction
-                if (direction.magnitude >= .1f) {
-                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
-                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-                    Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                    controller.Move(moveDir.normalized * speed * Time.deltaTime);
-                }
-
-                SetupCinemachine();
+                TppMovement(x, z);
                 break;
 
             case MovementType.FPP:
-                Vector3 move = transform.right * x + transform.forward * z;
-                controller.Move(move * speed * Time.deltaTime);
+                FppMovement(x, z);
                 break;
+
+            case MovementType.AutomaticView:
+                TppMovement(x, z);
+
+                break;
+
             default:
                 return;
         }
@@ -124,6 +123,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void TppMovement(float x, float z) {
+        Vector3 direction = new Vector3(x, 0f, z).normalized;
+
+        // rotate and move player based on the direction
+        if (direction.magnitude >= .1f) {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+        }
+
+        SetupCinemachine();
+    }
+
+    void FppMovement(float x, float z) {
+        Vector3 move = transform.right * x + transform.forward * z;
+        controller.Move(move * speed * Time.deltaTime);
+    }
+
     #endregion
 
     #region ----- Initialize ------
@@ -133,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
             case MovementType.TPP:
                 // disable mouselook script so player will use camera cihemachine instead
                 MouseLook.LockMouseLook(true);
+                MouseLook.AutomaticView(false);
 
                 // enable cinemachine
                 cinemachine.SetActive(true);
@@ -146,11 +167,12 @@ public class PlayerMovement : MonoBehaviour
                 foreach (GameObject item in turnOffWhenFPP) {
                     item.SetActive(true);
                 }
-
                 break;
+
             case MovementType.FPP:
                 // enable mouselook script so player will this camera
                 MouseLook.LockMouseLook(false);
+                MouseLook.AutomaticView(false);
 
                 // disable cinemachine
                 cinemachine.SetActive(false);
@@ -168,7 +190,39 @@ public class PlayerMovement : MonoBehaviour
                 // set camera to the head of avatar
                 cam.transform.position = rootCameraPosition.position;
                 break;
+
+            case MovementType.AutomaticView:
+                // enable mouselook script so player will this camera
+                MouseLook.LockMouseLook(false);
+                MouseLook.AutomaticView(true);
+
+                // disable cinemachine
+                cinemachine.SetActive(false);
+
+                // disable all object on in the turnOffWhenTPP
+                foreach (GameObject item in turnOffWhenTPP) {
+                    item.SetActive(false);
+                }
+
+                // enable all object on in the turnOffWhenFPP
+                foreach (GameObject item in turnOffWhenFPP) {
+                    item.SetActive(true);
+                }
+
+                // set camera to the head of avatar
+                cam.transform.position = rootCameraPosition.position + new Vector3(0f, 5f, -2f);
+                cam.transform.LookAt(rootCameraPosition);
+                break;
+            default:
+                break;
         }
+        UpdateTextDebug();
+    }
+
+    void UpdateTextDebug() {
+        if (movementTypeText == null) return;
+
+        movementTypeText.text = movementType.ToString();
     }
 
     //void InitWithPhoton() {
@@ -188,8 +242,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Init() {
         cinemachine = GameObject.FindGameObjectWithTag("Cinemachine");
-        InitMovement();
         MouseLook.CursorInit(lockCursor);
+        InitMovement();
+        
     }
 
     #endregion
@@ -240,6 +295,26 @@ public class PlayerMovement : MonoBehaviour
                 movementType = MovementType.TPP;
                 break;
         }
+        InitMovement();
+    }
+
+    public void ChooseMovementType(string type) {
+
+        switch (type.Trim()) {
+            case "FPP":
+                movementType = MovementType.FPP;
+                break;
+            case "TPP":
+                movementType = MovementType.TPP;
+                break;
+            case "AUTO":
+                movementType = MovementType.AutomaticView;
+                break;
+            default:
+                Debug.Log($"There's no movement type [{type}]");
+                break;
+        }
+        
         InitMovement();
     }
     #endregion

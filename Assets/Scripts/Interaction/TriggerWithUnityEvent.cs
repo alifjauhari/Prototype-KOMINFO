@@ -27,6 +27,9 @@ public class TriggerWithUnityEvent : MonoBehaviour {
         //if (!other.gameObject.GetComponent<PhotonView>().IsMine) return;
 
         onTriggerEnter.Invoke();
+        if (!isSendMessageOnEnter) {
+            return;
+        }
         other.SendMessage(message);
     }
 

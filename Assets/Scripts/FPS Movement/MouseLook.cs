@@ -12,10 +12,20 @@ public class MouseLook : MonoBehaviour
     [SerializeField] new Camera camera;
     [SerializeField] float defaultFOV;
 
+    [Header("AutomaticView Setting")]
+    [SerializeField] float moveSpeed = .05f;
+    [SerializeField] float rotationSpeed = .05f;
+    [SerializeField] float scrollSpeed = 1;
+    [SerializeField] float minHeight = 0;
+    [SerializeField] float maxHeight = 10;
+    [SerializeField] KeyCode anchoredMoveKey;
+    [SerializeField] KeyCode anchoredRotateKey;
+
     //[SerializeField] GameObject[] destroyOnNotMine;
     //private PhotonView photonView;
     //private PlayerMovement playerMovement;
 
+    static bool automaticView;
     static bool mouseLookLocked;
     float xRotation = 0f;
     #endregion
@@ -32,6 +42,7 @@ public class MouseLook : MonoBehaviour
         //    Init();
         //}
         cursorLockState = true;
+        automaticView = false;
     }
 
     void Update() {
@@ -47,6 +58,42 @@ public class MouseLook : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
+        if (!automaticView) {
+            FirstPersonPerspective(mouseX, mouseY);
+        } else {
+            AutomaticViewCamera(mouseX, mouseY);
+        }
+    }
+    
+    void AutomaticViewCamera(float mouseX, float mouseY) {
+
+        // move
+
+        Vector3 pos = transform.position;
+
+        if (Input.GetKey(anchoredMoveKey)) {
+            pos -= transform.right * mouseX;
+            pos += transform.forward * -mouseY;
+            pos.y = transform.position.y;
+        }
+
+        // zoom
+        float mouseScrollWheel = Input.GetAxis("Mouse ScrollWheel");
+        pos += mouseScrollWheel * transform.forward * scrollSpeed * 100f * Time.deltaTime;
+        pos.y = Mathf.Clamp(pos.y, minHeight, maxHeight);
+
+        transform.position = pos;
+
+        // rotate
+        if (Input.GetKey(anchoredRotateKey)) {
+            transform.RotateAround(transform.position, transform.right, -mouseY * rotationSpeed);
+            transform.RotateAround(transform.position, Vector3.up, mouseX * rotationSpeed);
+        }
+
+        
+    }
+
+    void FirstPersonPerspective(float mouseX, float mouseY) {
         // Zoom Control
         float mouseScrollWheel = Input.GetAxis("Mouse ScrollWheel");
         if (mouseScrollWheel > 0) {
@@ -113,6 +160,14 @@ public class MouseLook : MonoBehaviour
 
     public static void LockMouseLook(bool locking) {
         mouseLookLocked = locking;
+    }
+
+    public static void AutomaticView(bool isAuto) {
+        automaticView = isAuto;
+        if (automaticView) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
     #endregion
 }

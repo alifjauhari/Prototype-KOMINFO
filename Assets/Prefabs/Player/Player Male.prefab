@@ -1483,6 +1483,7 @@ MonoBehaviour:
   usingAnimation: 1
   targetAnimator: {fileID: 5393548620173936707}
   usingWalkAnimation: 1
+  movementTypeText: {fileID: 0}
   usingPhoton: 0
   disableOnNotMine:
   - {fileID: 331990305006062585}
@@ -2239,10 +2240,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d2e70f6d7b015468258b67f9f5e9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 500
+  mouseSensitivity: 50
   playerBody: {fileID: 5571800023076269973}
   camera: {fileID: 7310717586098138478}
   defaultFOV: 60
+  moveSpeed: 0.05
+  rotationSpeed: 2
+  scrollSpeed: 1
+  minHeight: 0
+  maxHeight: 10
+  anchoredMoveKey: 323
+  anchoredRotateKey: 324
 --- !u!114 &8157185405921822399
 MonoBehaviour:
   m_ObjectHideFlags: 0
