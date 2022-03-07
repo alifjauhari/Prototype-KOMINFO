@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] bool lockCursor = true;
     [SerializeField] Transform rootCameraPosition;
     [SerializeField] GameObject cam;
+    [SerializeField] Transform parentSwitch;
     [SerializeField] GameObject cinemachine;
 
     [Header("Disable When Switch Movement Type")]
@@ -91,8 +92,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case MovementType.AutomaticView:
-                TppMovement(x, z);
-
+                AutoViewMovement(x, z);
                 break;
 
             default:
@@ -144,6 +144,21 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * speed * Time.deltaTime);
     }
 
+    void AutoViewMovement(float x, float z) {
+        Vector3 direction = new Vector3(x, 0f, z).normalized;
+
+        // rotate and move player based on the direction
+        if (direction.magnitude >= .1f) {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+        }
+
+    }
+
     #endregion
 
     #region ----- Initialize ------
@@ -173,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
                 // enable mouselook script so player will this camera
                 MouseLook.LockMouseLook(false);
                 MouseLook.AutomaticView(false);
+                cam.transform.SetParent(transform);
 
                 // disable cinemachine
                 cinemachine.SetActive(false);
@@ -189,12 +205,15 @@ public class PlayerMovement : MonoBehaviour
 
                 // set camera to the head of avatar
                 cam.transform.position = rootCameraPosition.position;
+                
                 break;
 
             case MovementType.AutomaticView:
                 // enable mouselook script so player will this camera
                 MouseLook.LockMouseLook(false);
                 MouseLook.AutomaticView(true);
+
+                cam.transform.SetParent(parentSwitch);
 
                 // disable cinemachine
                 cinemachine.SetActive(false);
