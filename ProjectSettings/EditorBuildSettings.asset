@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Imported Assets/Loading Screen Studio/Scenes/Demo.unity
     guid: a0c7c2db1dc9801459e5236db993a808
+  - enabled: 1
+    path: Assets/KOMINFO - Login/Scenes/LoginRegister.unity
+    guid: 33326100dd17daf4fa8a2e63a1d8f8c6
+  - enabled: 1
+    path: Assets/KOMINFO - Login/Scenes/mainmenu.unity
+    guid: e1b684d29c1373249a1b954a035fef5f
+  - enabled: 1
+    path: Assets/Scenes/MainRoom2.unity
+    guid: da92bb0fe8c56294ebc05dda2116feac
   m_configObjects: {}

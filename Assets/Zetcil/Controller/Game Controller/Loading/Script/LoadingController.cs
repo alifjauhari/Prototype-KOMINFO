@@ -12,6 +12,7 @@ namespace Zetcil
     public class LoadingController : MonoBehaviour
     {
 
+
         public static string NextSceneIndex = "NextSceneIndex";
         static int scene_index;
         Slider loadbar;

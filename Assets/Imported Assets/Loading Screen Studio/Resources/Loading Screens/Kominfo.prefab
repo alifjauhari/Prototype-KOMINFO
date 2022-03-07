@@ -2691,7 +2691,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2da2d65ba233d904cb3f2cb2aeae95b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0c20ab37f285b3440a889aa6ddaaae43, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3950,7 +3950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8211219991492043411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4771,7 +4771,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MY AWESOME TITLE
+  m_text: aptika webspace
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff267d2515dada34ba351a8ffb4280e8, type: 2}
   m_sharedMaterial: {fileID: 21744047739656124, guid: ff267d2515dada34ba351a8ffb4280e8, type: 2}
@@ -5355,7 +5355,7 @@ MonoBehaviour:
   spinnerColor: {r: 0, g: 0.8235294, b: 1, a: 1}
   statusColor: {r: 0, g: 0.6862745, b: 1, a: 1}
   pakColor: {r: 0, g: 0.8832488, b: 1, a: 1}
-  titleObjText: MY AWESOME TITLE
+  titleObjText: aptika webspace
   titleObjDescText: 'A little bit description here. Type anything you want!
 
     Supports
@@ -5366,7 +5366,7 @@ MonoBehaviour:
   titleObj: {fileID: 4680403718319511208}
   descriptionObj: {fileID: 5974050737419449787}
   progressBar: {fileID: 2018139963470098821}
-  backgroundImage: {fileID: 21300000, guid: 2da2d65ba233d904cb3f2cb2aeae95b7, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 0c20ab37f285b3440a889aa6ddaaae43, type: 3}
   spinnerParent: {fileID: 6961627924460876571}
   hintsText: {fileID: 438385165067712837}
   changeHintWithTimer: 1
@@ -5395,16 +5395,16 @@ MonoBehaviour:
   keyCode: 32
   useSpecificKey: 0
   pakCountdownTimer: 5
-  virtualLoadingTimer: 8
-  enableVirtualLoading: 0
+  virtualLoadingTimer: 3
+  enableVirtualLoading: 1
   enableTitle: 1
   enableDescription: 0
   enableStatusLabel: 0
-  enableRandomHints: 1
-  enableRandomImages: 1
-  enablePressAnyKey: 1
+  enableRandomHints: 0
+  enableRandomImages: 0
+  enablePressAnyKey: 0
   forceCanvasGroup: 0
-  fadingAnimationSpeed: 2.5
+  fadingAnimationSpeed: 0.78
   onBeginEvents:
     m_PersistentCalls:
       m_Calls: []
