@@ -6,20 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Sandbox/SandboxAlif.unity
-    guid: 315d12bd822dc3a4cae4ff17df84010e
-  - enabled: 1
-    path: Assets/Scenes/Room2.unity
-    guid: 2809110d17e8a294dadae7f95783d6db
-  - enabled: 1
-    path: Assets/Zetcil/Controller/Game Controller/Loading/Scene/ZetLoadingScreen.unity
-    guid: f76ec0fd530892747a9f77a5aeed0da3
-  - enabled: 1
-    path: Assets/Imported Assets/Loading Screen Studio/Scenes/Test.unity
-    guid: 0b52bbbd706aede42abed82b6422f8a7
-  - enabled: 1
-    path: Assets/Imported Assets/Loading Screen Studio/Scenes/Demo.unity
-    guid: a0c7c2db1dc9801459e5236db993a808
+    path: Assets/Scenes/360.unity
+    guid: d902f51ed095f4c458301ac52c8b4e7f
   - enabled: 1
     path: Assets/KOMINFO - Login/Scenes/LoginRegister.unity
     guid: 33326100dd17daf4fa8a2e63a1d8f8c6
