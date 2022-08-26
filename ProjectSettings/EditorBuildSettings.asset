@@ -9,12 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/360.unity
     guid: d902f51ed095f4c458301ac52c8b4e7f
   - enabled: 1
-    path: Assets/KOMINFO - Login/Scenes/LoginRegister.unity
-    guid: 33326100dd17daf4fa8a2e63a1d8f8c6
-  - enabled: 1
-    path: Assets/KOMINFO - Login/Scenes/mainmenu.unity
-    guid: e1b684d29c1373249a1b954a035fef5f
-  - enabled: 1
-    path: Assets/Scenes/MainRoom2.unity
-    guid: da92bb0fe8c56294ebc05dda2116feac
+    path: Assets/Scenes/MainRoom2 Mobile.unity
+    guid: d279ea3b1f183c24893706bb8c08d2ee
   m_configObjects: {}
